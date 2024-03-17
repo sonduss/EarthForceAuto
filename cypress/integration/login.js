@@ -1,17 +1,36 @@
+/// <reference types="Cypress" />
+import LoginPage from 'C:/Users/sabughdaib/EarthForceAuto/cypress/support/PageObjectModal/LoginPage.js';
+import example from '../fixtures/example.json'
+
+
 describe('Login Test', () => {
-    it('should login with valid credentials', () => {
-      cy.visit('https://portal.dev.earthforce.io/portal/overview');
-      cy.get('#\\:r0\\:\\-form\\-item').type("muathmoh8+1@gmail.com");
-      cy.get('#\\:r1\\:-form-item').type("Earth@1234");
-      cy.get('.inline-flex').click();
-      cy.get('.text-white.text-xl').should('be.visible');
+  let testData;
+  const loginPage = new LoginPage()
+  beforeEach(function () {
+    cy.fixture('example.json').then((data) => {
+      testData = data;
+      loginPage.visit();
     });
-    it('should display an error message with invalid credentials', () => {
-      cy.visit('https://portal.dev.earthforce.io/portal/overview');
-      cy.get('#\\:r0\\:\\-form\\-item').type("muathmoh@gmail.com");
-      cy.get('#\\:r1\\:-form-item').type("Erth@1234");
-      cy.get('.inline-flex').click();
-      cy.get('.ml-4').should('be.visible') 
-    })
-  
+  })
+
+  it('should login with valid credentials', () => {
+    loginPage.fillEmail(testData.correctEmail);
+    loginPage.fillPassword(testData.correctPassword);
+    loginPage.clickLoginButton();
+    loginPage.getHeaderProject().should('be.visible');
+  });
+
+  it('should display an error message with invalid email', () => {
+    loginPage.fillEmail(testData.incorrectEmail);
+    loginPage.fillPassword(testData.correctPassword);
+    loginPage.clickLoginButton();
+    loginPage.getErrorMsg().should('be.visible') 
+  });
+
+  it('should display an error message with invalid password', () => {
+    loginPage.fillEmail(testData.correctEmail);
+    loginPage.fillPassword(testData.incorrectPassword);
+    loginPage.clickLoginButton();
+    loginPage.getErrorMsg().should('be.visible') 
+  });
 });
