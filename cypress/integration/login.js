@@ -1,5 +1,5 @@
-/// <reference types="Cypress" />
-import LoginPage from 'C:/Users/sabughdaib/EarthForceAuto/cypress/support/PageObjectModal/LoginPage.js';
+
+import LoginPage from '../support/PageObjectModal/LoginPage.js';
 import example from '../fixtures/example.json'
 
 
