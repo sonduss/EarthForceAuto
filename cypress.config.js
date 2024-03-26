@@ -3,7 +3,7 @@ module.exports = {
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    specPattern:'cypress/integration/login.js'
-
+    specPattern:'cypress/integration/*.js',
+    MAILOSAUR_API_KEY: "EarthForceAuto",
   },
 };
