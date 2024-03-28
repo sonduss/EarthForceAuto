@@ -1,4 +1,3 @@
-/// <reference types="Cypress" />
 import Overview from '../support/PageObjectModal/Overview.js';
 
 
