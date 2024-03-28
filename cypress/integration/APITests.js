@@ -4,12 +4,13 @@ describe('API Test', () => {
     const overview = new Overview()
     let UUID;
     let token;
-    let marketText=[];
+    let markerText=[];
     it('Login API Test', () => {
         cy.login().then(function(){
+            cy.wait(5000)
             overview.getMapMArker().each(($marker, index, $markers) => {
-                const name = $marker.find('p').eq(0).text(); // Assuming you extract the name from the marker
-                marketText.push(name);
+                const name = $marker.find('p').eq(0).text(); 
+                markerText.push(name);
               });});
         cy.request("https://api.dev.earthforce.io/portal/user-api", {
             "query": "\n  \n  fragment UserPermissionsFragment on User {\n    permissions {\n      id\n      projectId\n      projectName\n      userId\n      role\n      unitIds\n    }\n  }\n\n\n  query UserLogin($email: String!, $password: String!) {\n    userLogin(email: $email, password: $password) {\n      user {\n        id\n        firstName\n        lastName\n        email\n        type\n        status\n        token\n        trackToken\n        ...UserPermissionsFragment\n        company {\n          id\n          logo\n          name\n          type\n        }\n      }\n      errorMessage\n    }\n  }\n",
@@ -59,7 +60,7 @@ describe('API Test', () => {
             response.body.data.getAllOverview.forEach((project) => {
                 if (project.status === 'ACTIVE') {
                     const projectName = project.projectName;
-                    cy.wrap(marketText).should('include', projectName);         
+                    cy.wrap(markerText).should('include', projectName);         
                 }
       });
     });
