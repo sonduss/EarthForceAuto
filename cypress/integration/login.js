@@ -1,6 +1,6 @@
-
+/// <reference types="Cypress" />
 import LoginPage from '../support/PageObjectModal/LoginPage.js';
-import example from '../fixtures/example.json'
+
 
 
 describe('Login Test', () => {

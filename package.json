@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "cypress-mailisk": "^2.0.1",
+    "cypress-mailosaur": "^2.14.0",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "cypress-real-events": "^1.12.0"
+  }
+}
