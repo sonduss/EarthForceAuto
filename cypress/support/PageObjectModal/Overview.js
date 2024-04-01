@@ -1,8 +1,6 @@
 class Overview {
   
-  visit() {
-    cy.visit('https://portal.dev.earthforce.io/portal/overview');
-  }
+ 
   getZoomIn() {
     return cy.get('button[title="Zoom in"]');
   }
@@ -25,8 +23,8 @@ class Overview {
     return cy.get('.z-10 > .inline-flex')
   }
   getProjectName() {
-    return cy.get('.text-white.text-xl');
-  }
+   return cy.get('.flex.lg\\:hidden > .text-white')
+    }
 }
 
 

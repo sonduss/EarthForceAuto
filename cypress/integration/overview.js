@@ -1,16 +1,14 @@
-/// <reference types="Cypress" />
-import LoginPage from '../support/PageObjectModal/LoginPage.js';
 import Overview from '../support/PageObjectModal/Overview.js';
 
 
 describe('Overview Test', () => {
   const overview = new Overview()
   beforeEach(() => {
-    cy.login('muathmoh8+1@gmail.com', 'Earth@1234');
+    cy.login();
   });
 
 
-  it('should zoom in', () => {
+ it('should zoom in', () => {
     const numZoomClicks = 15;
     cy.wait(2000)
     for (let i = 0; i < numZoomClicks; i++) {
@@ -58,7 +56,8 @@ describe('Overview Test', () => {
     overview.getClearProjects().click()
     overview.getAllProjectsDiv().should('not.exist');
   })
-  /*it('Background color hover test', () => {
+  /*
+  it('Background color hover test', () => {
      cy.visit('https://portal.dev.earthforce.io/portal/overview');
      cy.get('#radix-\\:rd\\:')
          .then(($button) => {
@@ -70,12 +69,11 @@ describe('Overview Test', () => {
          });
  });*/
   it('Should click on the project and verify the link', () => {
-    overview.getAllProjectsDiv().eq(0).then(($marker) => {
+    overview.getMapMArker().each(($marker, index, $markers) => {
       const markerText = $marker.find('p').eq(0).text();
-      overview.getAllProjectsDiv().eq(0).click()
-      overview.getProjectName().should('be.visible').invoke('text').then((text) => {
-        expect(text).to.contain(markerText);
-      });
+      overview.getMapMArker().eq(0).click()
+      overview.getProjectName().should('be.visible').wait(1000).should('have.text', markerText);
+    });
     });
   });
 
@@ -83,6 +81,6 @@ describe('Overview Test', () => {
 
 
 
-})
+
 
 
