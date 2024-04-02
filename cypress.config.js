@@ -7,3 +7,4 @@ module.exports = {
     specPattern:'cypress/integration/*.js',
   },
 };
+

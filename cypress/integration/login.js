@@ -1,4 +1,5 @@
 import LoginPage from '../support/PageObjectModal/LoginPage.js';
+
 describe('Login Test', () => {
   let testData;
   const loginPage = new LoginPage()
