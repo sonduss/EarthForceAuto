@@ -5,7 +5,7 @@ class LoginPage
       }
 
     visit() {
-        cy.visit('https://portal.dev.earthforce.io/portal/overview');
+        cy.visit('/');
       }
     
       fillEmail(email) {

@@ -3,9 +3,8 @@ module.exports = {
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    env: {
-      baseUrl: 'https://portal.dev.earthforce.io/portal/overview',
-      },
+    baseUrl: 'https://portal.dev.earthforce.io/portal/overview',
     specPattern:'cypress/integration/*.js',
   },
 };
+
