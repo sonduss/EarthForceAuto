@@ -2,5 +2,6 @@
   "correctEmail": "muathmoh8+1@gmail.com",
   "correctPassword": "Earth@1234",
   "incorrectEmail":"muathmoh1@gmail.com",
-  "incorrectPassword":"Earth@12345"
+  "incorrectPassword":"Earth@12345",
+  "invalidEmails" :["muath","muath@","muath@gmail","muath@gmail."]
 }
