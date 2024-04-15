@@ -17,34 +17,25 @@ class ProjectPage {
         return cy.get('[data-testid="average-acres"]')
     }
     projectHours(){
-        return cy.get('[data-testid="project-hours"] > .justify-between')
+        return cy.get('[data-testid="project-hours"]')
     }
     activeUnits(){
         return cy.get('[data-testid="active-units"]')
     }
     getActualtotalAcres(){
-        return cy.get('[data-testid="progress-card"] > .mt-4 > :nth-child(1) > .flex > .mr-1')
-    }
-    getActualAcresDiff(){
-        return cy.get('[data-testid="total-acres"] > .justify-between > .mt-5 > .flex')
+        return cy.get('[data-testid="total-acres"]')
     }
     getActualAvgAcres(){
-       return cy.get('[data-testid="average-acres"] > .justify-between > .py-7 > .font-medium')
-    }
-    getActualAvgAcresDiff(){
-        return cy.get('[data-testid="average-acres"] > .justify-between > .mt-5 > .flex')
+       return cy.get('[data-testid="average-acres"]')
     }
     getActualProjectHours(){
-        return cy.get('[data-testid="project-hours"] > .justify-between > .py-7 > .font-medium')
+        return cy.get('[data-testid="project-hours"]')
     }
     getActualProjectHourLast(){
-        return cy.get('[data-testid="project-hours"] > .justify-between > .mt-5 > .flex')
+        return cy.get('[data-testid="project-hours"]')
     }
     getActualActiveUnits(){
-        return cy.get('[data-testid="active-units"] > .justify-between > .py-7 > .font-medium')
-    }
-    getActualActiveUnitsDiff(){
-        return cy.get('[data-testid="active-units"] > .justify-between > .items-end > .flex')
+        return cy.get('[data-testid="active-units"]')
     }
 }
 
