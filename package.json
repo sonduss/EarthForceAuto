@@ -2,12 +2,13 @@
   "devDependencies": {
     "cypress-mailisk": "^2.0.1",
     "cypress-mailosaur": "^2.14.0",
+    "prettier": "^3.2.5",
     "typescript": "^5.4.3"
   },
   "scripts": {
-  "test": "cypress run",
-  "test:staging": "cypress run --config baseUrl=https://portal.stage.earthforce.io/portal/overview",
-  "test:prod": "cypress run --config baseUrl=https://portal.prod.earthforce.io/portal/overview"
+    "test": "cypress run",
+    "test:staging": "cypress run --config baseUrl=https://portal.stage.earthforce.io/portal/overview",
+    "test:prod": "cypress run --config baseUrl=https://portal.prod.earthforce.io/portal/overview"
   },
   "dependencies": {
     "cypress-real-events": "^1.12.0"
