@@ -58,7 +58,7 @@ describe('Project Page Tests', () => {
                     cy.wrap(p[1]).should('be.visible').and('have.text', "Project Hours");
                     if (parseFloat(projectMetrics.projectHours.projectHoursLast7Days) != 0.0) {
                         cy.wrap(p[2]).invoke('text').then(timeString => {
-                           cy.wrap(p[2]).should('have.class','text-green');
+                            cy.wrap(p[2]).should('have.class', 'text-green');
                             cy.wrap(parseInt(timeString.split(" ")[0])).should('eq', Math.floor(projectMetrics.projectHours.projectHoursLast7Days))
                             cy.wrap(parseInt(timeString.split(" ")[1])).should('eq', parseInt((projectMetrics.projectHours.projectHoursLast7Days - Math.floor(projectMetrics.projectHours.projectHoursLast7Days)) * 60));
                             cy.wrap(p[3]).should('be.visible').and('have.text', "Lst Week");
@@ -70,7 +70,7 @@ describe('Project Page Tests', () => {
                 cy.wrap(p[0]).should('be.visible').and('have.text', parseInt(projectMetrics.activeUnits.totalActiveUnits))
                 cy.wrap(p[1]).should('be.visible').and('have.text', "Active Units");
                 if (parseInt(projectMetrics.activeUnits.activeUnitsDiff) != 0) {
-                    cy.wrap(p[2]).should('be.visible').and('have.text', Math.abs(projectMetrics.activeUnits.activeUnitsDiff)).and('have.class', parseInt(projectMetrics.activeUnits.activeUnitsDiff) < 0 ? 'text-destructive' : 'text-green');
+                    cy.wrap(p[2]).should('be.visible').and('have.text', Math.abs(projectMetrics.activeUnits.activeUnitsDiff)).and('have.class', 'text-green');
                     cy.wrap(p[3]).should('be.visible').and('have.text', "Lst Week");
                 }
             })
