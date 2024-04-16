@@ -40,42 +40,28 @@ describe('Project Page Tests', () => {
             const response = interception.response;
             const projectMetrics = response.body.data.getProjectMetrics;
             expect(interception.response.statusCode).to.eq(200);
-            const totalAcres = projectMetrics.totalAcres.totalAcres;
-            const totalAcressDiff = projectMetrics.totalAcres.totalAcresDiff;
-            const acresPerDay = projectMetrics.acresPerDay.avgAcresPerDay;
-            const AvgAcresDiff = projectMetrics.acresPerDay.avgAcresDiff;
-            const projectHour = projectMetrics.projectHours.totalProjectHours;
-            const projectHourLastDay = projectMetrics.projectHours.projectHoursLast7Days;
-            const totalActiveUnits = projectMetrics.activeUnits.totalActiveUnits;
-            const activeUnitsDiff = projectMetrics.activeUnits.activeUnitsDiff;
 
-          /*  project.getActualtotalAcres().invoke('text').then(actualTotalAcres => {
-                const roundedTotalAcres = parseFloat(totalAcres.toFixed(2));
-                const textWithoutAC = actualTotalAcres.replace("Ac", "");
-                expect(roundedTotalAcres).to.eq(parseFloat(textWithoutAC));
+            project.getActualtotalAcres().should('be.visible').find('p').then(p => {
+                cy.wrap(p[0]).should('be.visible').and('have.text', parseInt(projectMetrics.totalAcres.totalAcres))
+                cy.wrap(p[1]).should('be.visible').and('have.text', "Total Acres");
             })
-
-            project.getActualAcresDiff().invoke('text').then(actualAcresDiff => {
-                const totalAcressDiffRound = Math.floor(Math.abs(totalAcressDiff))
-                expect(totalAcressDiffRound).to.eq(parseFloat(actualAcresDiff));
-            });*/
             project.getActualAvgAcres().should('be.visible').find('p').then(p => {
-                cy.wrap(p[0]).should('be.visible'). and('have.text',parseFloat(acresPerDay.toFixed(1)))
-                cy.wrap(p[1]).should('be.visible'). and('have.text',"Avg Acres Per Day");
+                cy.wrap(p[0]).should('be.visible').and('have.text', parseFloat(projectMetrics.acresPerDay.avgAcresPerDay.toFixed(1)))
+                cy.wrap(p[1]).should('be.visible').and('have.text', "Avg Acres Per Day");
             })
             project.getActualProjectHours().should('be.visible').find('p').then(p => {
                 cy.wrap(p[0]).should('be.visible')
                 cy.wrap(p[0]).invoke('text').then(timeString => {
-                    cy.wrap(parseInt(timeString.split(" ")[0])).should('eq', Math.floor(projectHour));
-                    cy.wrap(p[1]).should('be.visible'). and('have.text',"Project Hours");
+                    cy.wrap(parseInt(timeString.split(" ")[0])).should('eq', Math.floor(projectMetrics.projectHours.totalProjectHours));
+                    cy.wrap(p[1]).should('be.visible').and('have.text', "Project Hours");
+                })
             })
-        })
-        project.getActualActiveUnits().should('be.visible').find('p').then(p => {
-            cy.wrap(p[0]).should('be.visible'). and('have.text',parseFloat(totalActiveUnits))
-            cy.wrap(p[1]).should('be.visible'). and('have.text',"Active Units");
-        })
-         
-           
+            project.getActualActiveUnits().should('be.visible').find('p').then(p => {
+                cy.wrap(p[0]).should('be.visible').and('have.text', parseFloat(projectMetrics.activeUnits.totalActiveUnits))
+                cy.wrap(p[1]).should('be.visible').and('have.text', "Active Units");
+            })
+
+
         });
     });
 });

@@ -2,7 +2,7 @@ class ProjectPage {
   
  
     getProjectHeader() {
-      return cy.get('#radix-\\:ri\\: > p');
+      return cy.get('#radix-\\:ri\\:');
     }
     getProjectName(){
         return cy.get('[data-testid="project-name"]')
