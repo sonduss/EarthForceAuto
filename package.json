@@ -7,7 +7,7 @@
   "scripts": {
     "test": "cypress run",
     "test:staging": "cypress run --config baseUrl=https://portal.stage.earthforce.io/portal/overview",
-    "test:prod": "cypress run --config baseUrl=https://portal.prod.earthforce.io/portal/overview"
+    "test:prod": "cypress run --headed --config baseUrl=https://portal.earthforce.io/portal/overview"
   },
   "dependencies": {
     "cypress-real-events": "^1.12.0"
