@@ -11,7 +11,7 @@ describe('Project Page Tests', () => {
     });
     it('Project Metrics Page', () => {
         cy.wait(1000);
-        cy.intercept('POST', 'https://api.dev.earthforce.io/portal/main-api', (req) => {
+        cy.intercept('POST', Cypress.env('CYPRESS_ENVIRONMENT') === 'production' ? Cypress.env('baseUrlProd') : Cypress.env('baseUrlDev'), (req) => {
             if (req.body && req.body.operationName === "GetProjectMetrics") {
                 req.alias = 'getProjectMetricsQuery';
             }
@@ -26,18 +26,17 @@ describe('Project Page Tests', () => {
                 project.getProjectName().invoke('text').then(projectName => {
                     expect(projectName).to.equal(markerText);
                 });
-                project.progressCard().should('be.visible');
+                project.progressCard().should('be.visible');          
             });
         });
         cy.wait('@getProjectMetricsQuery').then((interception) => {
             const projectMetrics = interception.response.body.data.getProjectMetrics;
             expect(interception.response.statusCode).to.eq(200);
-            cy.wait(1000)
+            cy.wait(5000)
             project.getActualtotalAcres().should('be.visible').find('p').then(p => {
                 cy.wrap(p[0]).should('be.visible').and('have.text', parseInt(projectMetrics.totalAcres.totalAcres))
                 cy.wrap(p[1]).should('be.visible').and('have.text', "Total Acres");
                 if (parseFloat(projectMetrics.totalAcres.totalAcresDiff) != 0.0) {
-                    console.log("The totla is ", Math.trunc(Math.abs(projectMetrics.totalAcres.totalAcresDiff)))
                     cy.wrap(p[2]).should('be.visible').and('have.text', Math.trunc(Math.abs(projectMetrics.totalAcres.totalAcresDiff))).and('have.class', parseFloat(projectMetrics.totalAcres.totalAcresDiff) < 0.0 ? 'text-destructive' : 'text-green');
                     cy.wrap(p[3]).should('be.visible').and('have.text', "Lst Week");
                 }
