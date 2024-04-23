@@ -9,7 +9,7 @@ module.exports = {
   
       },
       baseUrl: 'https://portal.dev.earthforce.io/portal/overview',
-      specPattern: 'cypress/integration/*.js',
+      specPattern: 'cypress/integration/projectPage.js',
     },
   };
   

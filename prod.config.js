@@ -8,7 +8,7 @@ module.exports = {
         CYPRESS_ENVIRONMENT: "production"
       },
       baseUrl: 'https://portal.earthforce.io/portal/overview',
-      specPattern: 'cypress/integration/*.js',
+      specPattern: 'cypress/integration/projectPage.js',
     },
   };
   

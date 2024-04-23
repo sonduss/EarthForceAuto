@@ -52,7 +52,7 @@ describe('Project Page Tests', () => {
             project.getActualProjectHours().should('be.visible').find('p').then(p => {
                 cy.wrap(p[0]).invoke('text').then(timeString => {
                     cy.wrap(parseInt(timeString.split(" ")[0])).should('eq', Math.floor(projectMetrics.projectHours.totalProjectHours));
-                    cy.wrap(parseInt(timeString.split(" ")[1])).should('eq', parseInt((projectMetrics.projectHours.totalProjectHours - Math.floor(projectMetrics.projectHours.totalProjectHours)) * 60))
+                    cy.wrap(parseInt(timeString.split(" ")[1])).should('eq', Math.abs(parseInt(projectMetrics.projectHours.totalProjectHours) - parseFloat(projectMetrics.projectHours.totalProjectHours)) * 60);
 
                     cy.wrap(p[1]).should('be.visible').and('have.text', "Project Hours");
                     if (parseFloat(projectMetrics.projectHours.projectHoursLast7Days) != 0.0) {
