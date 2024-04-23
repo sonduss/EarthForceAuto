@@ -4,9 +4,8 @@ module.exports = {
         // implement node event listeners here
       },
       env: {
-      
-        CYPRESS_ENVIRONMENT: "production",
-  
+        baseUrlProd:"https://api.earthforce.io/portal/main-api",
+        CYPRESS_ENVIRONMENT: "production"
       },
       baseUrl: 'https://portal.earthforce.io/portal/overview',
       specPattern: 'cypress/integration/*.js',
