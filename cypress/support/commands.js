@@ -22,6 +22,14 @@ cy.get('[type="submit"]').click();
 
 })
 
+Cypress.Commands.add('fillContactForm', (name, email, phoneNumber, position) => {
+    cy.get('form').should('be.visible').find('div').then(div => {
+      cy.wrap(div[0]).find('input').type(name);
+      cy.wrap(div[1]).find('input').type(email);
+      cy.wrap(div[2]).find('input').type(phoneNumber);
+      cy.wrap(div[3]).find('input').type(position);
+    });
+  });
 
 
 
