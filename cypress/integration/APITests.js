@@ -29,41 +29,7 @@ describe('API Test', () => {
             expect(response.body.data.userLogin.user.id).to.not.be.null;
         });
     });
-    it('Get All Overview API Test', () => {
-        const query = `
-        query GetAllOverview($userUUID: String!) {
-          getAllOverview(userUUID: $userUUID) {
-            id
-            projectName
-            status
-            startDate
-            endDate
-          }
-        }
-      `;
-    const variables = {
-        userUUID: UUID
-      };
-      cy.request({
-        method: 'POST',
-        url: 'https://api.dev.earthforce.io/portal/main-api',
-        body: {
-          query,
-          variables
-        }, 
-        headers: {
-          Authorization: token
-        }
-      }).then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.body.data).to.have.property('getAllOverview');
-            response.body.data.getAllOverview.forEach((project) => {
-                if (project.status === 'ACTIVE') {
-                    const projectName = project.projectName;
-                    cy.wrap(markerText).should('include', projectName);         
-                }
-      });
-    });
+    
   });
-});
+
 

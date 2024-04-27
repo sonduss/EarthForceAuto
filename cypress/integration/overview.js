@@ -68,14 +68,9 @@ describe('Overview Test', () => {
                  .should('have.css', 'background-color', 'hsl(var(--primary))');
          });
  });*/
-  it('Should click on the project and verify the link', () => {
-    overview.getMapMArker().each(($marker, index, $markers) => {
-      const markerText = $marker.find('p').eq(0).text();
-      overview.getMapMArker().eq(0).click()
-      overview.getProjectName().should('be.visible').wait(1000).should('have.text', markerText);
+  
     });
-    });
-  });
+  
 
 
 

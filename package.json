@@ -5,9 +5,8 @@
     "typescript": "^5.4.3"
   },
   "scripts": {
-  "test": "cypress run",
-  "test:staging": "cypress run --config baseUrl=https://portal.stage.earthforce.io/portal/overview",
-  "test:prod": "cypress run --config baseUrl=https://portal.prod.earthforce.io/portal/overview"
+    "test:dev": "cypress run --headed --config-file dev.config.js",
+    "test:prod": "cypress run --headed --config-file prod.config.js"
   },
   "dependencies": {
     "cypress-real-events": "^1.12.0"
