@@ -37,12 +37,46 @@ class Contact {
         cy.contains(phone).should(property);
        
     }
+    deleteContact(name) {
+        return this.getContactInfo().should('be.exist').then(() => {
+            let flag = false;
+            cy.get('[data-testid="contact-info"]').each(($e1, index, $list) => {
+                const text = $e1.text();
+                if (text.includes(name)) {
+                    cy.wrap($e1).find('.cursor-pointer[type="button"]').should('be.visible').click();
+                    cy.contains('Delete Contact').click();
+                    cy.contains('Yes, Delete').click();
+                    flag = true;
+                    return false; 
+                }
+            }).then(() => {
+                return flag;
+            });
+        });
+    }
+    CheckContactInfoVisibility(){
+        cy.wait('@GetProjectContactsQuery').then((interception) => {
+            const projectContacts = interception.response.body.data.getProjectContacts;
+            if (projectContacts && projectContacts.length > 0) {
+                for (let i = 0; i < projectContacts.length; i++) {
+                    const contacts = projectContacts[i];
+                    if (contacts.units && contacts.units.length === 0) {
+                      this.getContactInfo().should('be.visible')
+                      return; 
+                    }
+                    else{
+                        cy.contains('No Contacts Found').should('be.exist')
+                    }
+                }
+            }
+            else{
+                cy.contains('No Contacts Found').should('be.exist')
+            }
+        });
+    }
     
+    }
 
 
-
-
-
-}
 
 export default Contact;
