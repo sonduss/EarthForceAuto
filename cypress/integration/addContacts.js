@@ -44,7 +44,7 @@ describe('Contacts Tests', () => {
     contact.fillContactForm('sondus test', 'sondus@gmail.com', '0595120666', 'test');
     contact.clickOnSubmitBtn()
     contact.checkConfirmatoinMsg('Contact added successfully')
-    contact.checkContactCardInfo('sondus test', 'sondus@gmail.com', '0595120666', 'test')
+    contact.checkContactCardInfo('sondus test', 'sondus@gmail.com', '0595120666', 'test','be.exist')
 
   });
 
@@ -69,7 +69,7 @@ describe('Contacts Tests', () => {
     cy.get('[role="dialog"]').should('be.visible');
     cy.contains('[role="dialog"] button', 'Add Contact').click();
     contact.checkConfirmatoinMsg('Contact added successfully')
-    contact.checkContactCardInfo('dup test', 'duptest@gmail.com', '0595120666', 'test')
+    contact.checkContactCardInfo('dup test', 'duptest@gmail.com', '0595120666', 'test','be.exist')
 
   });
 
@@ -82,7 +82,7 @@ describe('Contacts Tests', () => {
     contact.fillContactForm('sondus Mohtest', '{selectall}{backspace}', '0595122211', '{selectall}{backspace}');
     contact.clickOnSubmitBtn()
     contact.checkConfirmatoinMsg('Contact added successfully')
-    contact.checkContactCardInfo('sondus Mohtest',null, '0595122211', null)
+    contact.checkContactCardInfo('sondus Mohtest',null, '0595122211', null,'be.exist')
   });
     it('Leave all the feilds empty', () => {
       cy.wait('@GetProjectContactsQuery').then((interception) => {
@@ -140,7 +140,7 @@ describe('Contacts Tests', () => {
         contact.fillContactForm('Delete test', 'deletest@gmail.com', '0595124414', 'testDel');
           contact.clickOnSubmitBtn()
           contact.checkConfirmatoinMsg('Contact added successfully')
-          contact.checkContactCardInfo('Delete test', 'deletest@gmail.com', '0595124414', 'testDel')
+          contact.checkContactCardInfo('Delete test', 'deletest@gmail.com', '0595124414', 'testDel','be.exist')
           contact.getContactInfo().should('be.exist').each(($e1, index, $list) => {
             const text = $e1.text();
             if (text.includes("Delete test")) {
@@ -155,7 +155,7 @@ describe('Contacts Tests', () => {
     })
     if(flag==true){
     contact.checkConfirmatoinMsg('Contact deleted successfully');
-    contact.checkContactCardNotExistInfo('Delete test', 'deletest@gmail.com', '0595124414', 'testDel')
+    contact.checkContactCardInfo('Delete test', 'deletest@gmail.com', '0595124414', 'testDel','not.exist')
     }
   });
 });

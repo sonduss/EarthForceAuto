@@ -25,30 +25,19 @@ class Contact {
           cy.wrap(div[3]).find('input').clear().type(position);
         });
     }
-    checkContactCardInfo(name, email = null,phone, position = null) {
+    checkContactCardInfo(name, email = null,phone, position = null, property) {
         cy.get('[data-testid="contact-info"]').should('exist')
-        cy.contains(name).should('be.exist');
+        cy.contains(name).should(property);
         if (email !== null) {
-            cy.contains(email).should('be.exist');
+            cy.contains(email).should(property);
         }
         if (position !== null) {
-            cy.contains(position).should('be.exist');
+            cy.contains(position).should(property);
         }
-        cy.contains(phone).should('be.exist');
+        cy.contains(phone).should(property);
        
     }
-    checkContactCardNotExistInfo(name, email = null,phone, position = null) {
-        cy.contains(name).should('not.exist');
-        if (email !== null) {
-            cy.contains(email).should('not.exist');
-        }
-        if (position !== null) {
-            cy.contains(position).should('not.exist');
-        }
-        cy.contains(phone).should('not.exist');
-       
-    }
-
+    
 
 
 
