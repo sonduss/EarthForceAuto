@@ -130,6 +130,71 @@ describe('Contacts Tests', () => {
         cy.get('[type="submit"]').should('be.disabled');
       })
     })
+  
+    it('Edit all the feilds successfully',()=>{
+      let flag;
+      cy.wait('@GetProjectContactsQuery').then((interception) => {
+        contact.getContactInfo().should('be.visible')
+        const projectContacts = interception.response.body.data.getProjectContacts;
+        if (projectContacts && projectContacts.length > 0) {
+          contact.clickOnAddContactBtn()
+          contact.fillContactForm('testing feild', 'testingfeild@gmail.com', '0574123635', 'testingfeilds');
+            contact.clickOnSubmitBtn()
+            contact.checkConfirmatoinMsg('Contact added successfully')
+            contact.checkContactCardInfo('testing feild', 'testingfeild@gmail.com', '0574123635', 'testingfeilds','be.exist')
+            contact.getContactInfo().should('be.exist').each(($e1, index, $list) => {
+              const text = $e1.text();
+              if (text.includes("testing feild")) {
+                cy.wrap($e1).find('.cursor-pointer[type="button"]').should('be.visible').click();
+                $e1.find('.cursor-pointer[type="button"]').trigger('click');
+                cy.contains('Edit Contact').click();
+                contact.fillContactForm('sondEdit', 'sondEdit@gmail.com', '0595120685', 'sonEdit');
+            contact.clickOnSubmitBtn()
+                flag=true;
+              }
+            });
+        }
+      })
+      if(flag==true){
+        contact.checkConfirmatoinMsg('Contact updated successfully')
+        contact.checkContactCardInfo('sondEdit', 'sondEdit@gmail.com', '0595120685', 'sonEdit','be.exist')
+      }
+    })
+    it('Edit the name feild successfully',()=>{
+      let flag;
+      cy.wait('@GetProjectContactsQuery').then((interception) => {
+        contact.getContactInfo().should('be.visible')
+        const projectContacts = interception.response.body.data.getProjectContacts;
+        if (projectContacts && projectContacts.length > 0) {
+          contact.clickOnAddContactBtn()
+          contact.fillContactForm('Edit name', 'editname@gmail.com', '0598796541', 'testname');
+            contact.clickOnSubmitBtn()
+            contact.checkConfirmatoinMsg('Contact added successfully')
+            contact.checkContactCardInfo('Edit name', 'editname@gmail.com', '0598796541', 'testname','be.exist')
+            contact.getContactInfo().should('be.exist').each(($e1, index, $list) => {
+              const text = $e1.text();
+              if (text.includes("Edit name")) {
+                cy.wrap($e1).find('.cursor-pointer[type="button"]').should('be.visible').click();
+                $e1.find('.cursor-pointer[type="button"]').trigger('click');
+                cy.contains('Edit Contact').click();
+                cy.get('form').should('be.visible').find('div').then(div => {
+                  cy.wrap(div[0]).find('input').clear().type('Editing nametest');
+                            })
+                contact.clickOnSubmitBtn()
+                cy.get('[role="dialog"]').should('be.visible');
+            cy.contains('[role="dialog"] button', 'Add Contact').click();
+                flag=true;
+              }
+            });
+        }
+      })
+      if(flag==true){
+        contact.checkConfirmatoinMsg('Contact updated successfully')
+        contact.checkContactCardInfo('Editing nametest', 'editname@gmail.com', '0598796541', 'testname','be.exist')
+      }
+    })
+   
+   
   it('Deletes a contact successfully', () => {
     let flag;
     cy.wait('@GetProjectContactsQuery').then((interception) => {
