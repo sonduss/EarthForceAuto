@@ -19,13 +19,13 @@ class Contact {
     }
     fillContactForm(name, email, phoneNumber, position) {
         cy.get('form').should('be.visible').find('div').then(div => {
-          cy.wrap(div[0]).find('input').clear().type(name);
-          cy.wrap(div[1]).find('input').clear().type(email);
-          cy.wrap(div[2]).find('input').clear().type(phoneNumber);
-          cy.wrap(div[3]).find('input').clear().type(position);
+            cy.wrap(div[0]).find('input').clear().type(name);
+            cy.wrap(div[1]).find('input').clear().type(email);
+            cy.wrap(div[2]).find('input').clear().type(phoneNumber);
+            cy.wrap(div[3]).find('input').clear().type(position);
         });
     }
-    checkContactCardInfo(name, email = null,phone, position = null, property) {
+    checkContactCardInfo(name, email = null, phone, position = null, property) {
         cy.get('[data-testid="contact-info"]').should('exist')
         cy.contains(name).should(property);
         if (email !== null) {
@@ -35,7 +35,7 @@ class Contact {
             cy.contains(position).should(property);
         }
         cy.contains(phone).should(property);
-       
+
     }
     deleteContact(name) {
         return this.getContactInfo().should('be.exist').then(() => {
@@ -47,35 +47,35 @@ class Contact {
                     cy.contains('Delete Contact').click();
                     cy.contains('Yes, Delete').click();
                     flag = true;
-                    return false; 
+                    return false;
                 }
             }).then(() => {
                 return flag;
             });
         });
     }
-    CheckContactInfoVisibility(){
+    CheckContactInfoVisibility() {
         cy.wait('@GetProjectContactsQuery').then((interception) => {
             const projectContacts = interception.response.body.data.getProjectContacts;
             if (projectContacts && projectContacts.length > 0) {
                 for (let i = 0; i < projectContacts.length; i++) {
                     const contacts = projectContacts[i];
                     if (contacts.units && contacts.units.length === 0) {
-                      this.getContactInfo().should('be.visible')
-                      return; 
+                        this.getContactInfo().should('be.visible')
+                        return;
                     }
-                    else{
+                    else {
                         cy.contains('No Contacts Found').should('be.exist')
                     }
                 }
             }
-            else{
+            else {
                 cy.contains('No Contacts Found').should('be.exist')
             }
         });
     }
-    
-    }
+
+}
 
 
 
