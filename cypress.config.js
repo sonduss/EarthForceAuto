@@ -4,7 +4,7 @@ module.exports = {
       // implement node event listeners here
     },
    
-    baseUrl: 'https://portal.dev.earthforce.io/portal/overview',
+    baseUrl: 'https://portal.dev.earthforce.io/portal/',
     specPattern: 'cypress/integration/*.js',
   },
 };
