@@ -5,6 +5,7 @@
     "typescript": "^5.4.3"
   },
   "scripts": {
+    "test": "cypress run",
     "test:dev": "cypress run --headed --config-file dev.config.js",
     "test:prod": "cypress run --headed --config-file prod.config.js"
   },

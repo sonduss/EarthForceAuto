@@ -11,7 +11,7 @@ describe('Project Page Tests', () => {
     });
     it('Project Metrics Page', () => {
         cy.wait(1000);
-        cy.intercept('POST', Cypress.env('CYPRESS_ENVIRONMENT') === 'production' ? Cypress.env('baseUrlProd') : Cypress.env('baseUrlDev'), (req) => {
+        cy.intercept('POST', 'https://api.dev.earthforce.io/portal/main-api', (req) => {
             if (req.body && req.body.operationName === "GetProjectMetrics") {
                 req.alias = 'getProjectMetricsQuery';
             }
@@ -50,11 +50,9 @@ describe('Project Page Tests', () => {
                 }
             })
             project.getActualProjectHours().should('be.visible').find('p').then(p => {
-                cy.wrap(p[0]).invoke('text').then(timeString => {
-                    cy.wrap(parseInt(timeString.split(" ")[0])).should('eq', Math.floor(projectMetrics.projectHours.totalProjectHours));
-                    cy.wrap(parseInt(timeString.split(" ")[1])).should('eq', Math.abs(parseInt(projectMetrics.projectHours.totalProjectHours) - parseFloat(projectMetrics.projectHours.totalProjectHours)) * 60);
-
+                    cy.wrap(p[0]).should('be.visible').and('have.text', Math.floor(projectMetrics.projectHours.totalProjectHours)+"h "+Math.floor(Math.abs(parseInt(projectMetrics.projectHours.totalProjectHours) - parseFloat(projectMetrics.projectHours.totalProjectHours)) * 60)+"m")
                     cy.wrap(p[1]).should('be.visible').and('have.text', "Project Hours");
+            
                     if (parseFloat(projectMetrics.projectHours.projectHoursLast7Days) != 0.0) {
                         cy.wrap(p[2]).invoke('text').then(timeString => {
                             cy.wrap(p[2]).should('have.class', 'text-green');
@@ -64,7 +62,7 @@ describe('Project Page Tests', () => {
                         })
                     }
                 })
-            })
+            
             project.getActualActiveUnits().should('be.visible').find('p').then(p => {
                 cy.wrap(p[0]).should('be.visible').and('have.text', parseInt(projectMetrics.activeUnits.totalActiveUnits))
                 cy.wrap(p[1]).should('be.visible').and('have.text', "Active Units");
