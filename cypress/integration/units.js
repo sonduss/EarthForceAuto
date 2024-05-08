@@ -1,10 +1,14 @@
 import Overview from '../support/PageObjectModal/Overview.js';
 import UnitsPage from '../support/PageObjectModal/UnitsPage.js';
+import Contact from '../support/PageObjectModal/Contact.js';
+
 
 
 describe('Units Tests', () => {
     const overview = new Overview()
     const unitsPage = new UnitsPage()
+    const contact = new Contact()
+
     beforeEach(() => {
         cy.login();
         cy.wait(5000)
@@ -53,31 +57,35 @@ describe('Units Tests', () => {
         });
     });
     it('Test Saved Units', () => {
-        let unitName;
+        let unsavedUnit = "";
         cy.wait('@GetProjectUnitsQuery').then((interception) => {
             const projectUnits = interception.response.body.data.getProjectUnits;
             if (projectUnits && projectUnits.length > 0) {
-                const firstUnit = projectUnits[0];
-                unitName = firstUnit.unitName;
                 cy.intercept('POST', 'https://api.dev.earthforce.io/portal/main-api', (req) => {
                     if (req.body && req.body.operationName === "GetSavedUnits") {
                         req.alias = 'GetSavedUnitsQuery';
                     }
-                })
-                cy.contains('[data-testid="unit-name"]', unitName).then($unitName => {
-                    const button = $unitName.closest('[data-testid="go-to-unit"]').find('[data-testid="save-unit-button"]');
-                    cy.wrap(button).click().as('clickedButton');
                 });
+                unitsPage.getUnsavedUnitName(projectUnits).then(unitName => {
+                    console.log("UnitName: " + unitName);
+                    cy.contains('[data-testid="unit-name"]', unitName).then($unitName => {
+                        unsavedUnit = unitName;
+                        const button = $unitName.closest('[data-testid="go-to-unit"]').find('[data-testid="save-unit-button"]');
+                        cy.wrap(button).click().as('clickedButton');
+                    });
+                });
+
                 cy.visit('/saved');
                 cy.wait('@GetSavedUnitsQuery').then((res) => {
-                    const savedUnits = res.response.body.data.getSavedUnits;
-                    if (savedUnits && savedUnits.length > 0) {
-                        cy.contains(unitName).should('be.exist')
+                    if (unsavedUnit.length > 0) {
+                        const savedUnits = res.response.body.data.getSavedUnits;
+                        if (savedUnits && savedUnits.length > 0) {
+                            cy.contains(unsavedUnit).should('be.exist');
+                        }
                     }
-                })
+                });
+
             }
         });
     });
-    
-
 });

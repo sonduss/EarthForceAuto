@@ -35,5 +35,20 @@ goToUnits(){
         }
         return percentageString;
     }
+    getUnsavedUnitName(projectUnits) {
+        return new Cypress.Promise(resolve => {
+            for (let i = 0; i < projectUnits.length; i++) {
+                const unit = projectUnits[i];
+                cy.contains('[data-testid="unit-name"]', unit.unitName).then($unitName => {
+                    const button = $unitName.closest('[data-testid="go-to-unit"]').find('[data-testid="save-unit-button"]');
+                    cy.wrap(button).invoke('css', 'background-color').then(bgColor => {
+                        if (bgColor !== 'rgb(255, 95, 20)') {
+                            resolve(unit.unitName);
+                        }
+                    });
+                });
+            }
+        });
+    }
 }
 export default UnitsPage;
