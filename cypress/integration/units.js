@@ -72,6 +72,7 @@ describe('Units Tests', () => {
                         unsavedUnit = unitName;
                         const button = $unitName.closest('[data-testid="go-to-unit"]').find('[data-testid="save-unit-button"]');
                         cy.wrap(button).click().as('clickedButton');
+                        contact.checkConfirmatoinMsg('Unit saved successfully');
                     });
                 });
 
